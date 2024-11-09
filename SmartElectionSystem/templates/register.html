@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 90%; /* Changed to fit better on small screens */
+            max-width: 450px; /* Max width so it doesn't get too wide */
+            overflow-y: auto; /* Enable scrolling if content overflows */
+            max-height: 90vh; /* Ensure it doesn't exceed screen height */
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="date"], input[type="number"], input[type="password"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input[type="radio"] {
+            margin: 0 10px;
+        }
+        label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .gender-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registerForm" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="fatherName">Father's Name:</label>
+            <input type="text" id="fatherName" name="fatherName" required>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required onchange="calculateAge()">
+            <p id="ageMessage" class="error">Age is less than 18, you are not eligible to register.</p>
+
+            <label>Gender:</label>
+            <div class="gender-group">
+                <input type="radio" id="male" name="gender" value="Male" required>
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="Female" required>
+                <label for="female">Female</label>
+            </div>
+
+            <label for="aadhaar">Aadhaar Number:</label>
+            <input type="text" id="aadhaar" name="aadhaar" required maxlength="12">
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" value="+91" required>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="pincode">Pincode:</label>
+            <input type="text" id="pincode" name="pincode" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+            <p id="passwordMessage" class="error">Passwords do not match.</p>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        // Age validation logic
+        function calculateAge() {
+            const dob = document.getElementById('dob').value;
+            const birthDate = new Date(dob);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const month = today.getMonth() - birthDate.getMonth();
+
+            if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            const ageMessage = document.getElementById('ageMessage');
+            if (age < 18) {
+                ageMessage.style.display = 'block';
+            } else {
+                ageMessage.style.display = 'none';
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Validate Age
+            const ageMessage = document.getElementById('ageMessage');
+            if (ageMessage.style.display === 'block') {
+                alert("You are not eligible to register.");
+                return;
+            }
+
+            // Validate Password Match
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const passwordMessage = document.getElementById('passwordMessage');
+            if (password !== confirmPassword) {
+                passwordMessage.style.display = 'block';
+                return;
+            } else {
+                passwordMessage.style.display = 'none';
+            }
+            document.getElementById('registerForm').submit();
+
+            //window.location.href = "login.html"; // Redirect to login page
+
+        });
+    </script>
+
+</body>
+</html>

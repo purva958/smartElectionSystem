@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .access-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        button {
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .add-data {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .add-data:hover {
+            background-color: #45a049;
+        }
+        .see-votes {
+            background-color: #2196F3;
+            color: white;
+        }
+        .see-votes:hover {
+            background-color: #0b79d0;
+        }
+        .admin {
+            background-color: #f44336;
+            color: white;
+        }
+        .admin:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+<div class="access-container">
+    <h2>Access Page</h2>
+    <button class="add-data" onclick="window.location.href='add_data.html'">Add Data</button>
+    <button class="see-votes" onclick="window.location.href='see-votes.html'">See Votes</button>s
+</div>
+
+</body>
+</html>

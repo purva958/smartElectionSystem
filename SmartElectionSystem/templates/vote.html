@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Data Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Select an Action</h2>
+        <form action="/add_faces" method="POST">
+            <button type="submit">Add Faces</button>
+        </form>
+        <form action="/train_data" method="POST">
+            <button id="trainButton" type="submit">Train Data</button>
+        </form>
+        <form action="/give_vote" method="POST">
+            <button id="voteButton" type="submit">Give Vote</button>
+        </form>
+    </div>
+
+    <script>
+        // These values will be embedded directly as strings (set them dynamically from your backend)
+        const facesAdded = "{{ faces_added }}";  // Pass from Flask as 'true' or 'false'
+        const dataTrained = "{{ data_trained }}"; // Pass from Flask as 'true' or 'false'
+
+        // Get the buttons
+        const trainButton = document.getElementById('trainButton');
+        const voteButton = document.getElementById('voteButton');
+
+        // Enable or disable buttons based on conditions
+        trainButton.disabled = facesAdded !== 'true';  // Enable "Train Data" only if faces are added
+        voteButton.disabled = !(facesAdded === 'true' && dataTrained === 'true'); // Enable "Give Vote" only if faces are added and data is trained
+    </script>
+</body>
+</html>
